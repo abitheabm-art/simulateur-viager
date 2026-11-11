@@ -1,0 +1,9 @@
+{
+  "name": "simulateur-viager",
+  "version": "7.0.0",
+  "private": true,
+  "description": "Simulateur de viager occupé (DUH, bouquet, rente) – ABITHÉA Littoral Provence",
+  "scripts": { "test": "node --test" },
+  "devDependencies": { "jsdom": "^26.0.0" },
+  "engines": { "node": ">=20" }
+}
