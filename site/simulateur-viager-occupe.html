@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Simulation de viager occupé | ABITHÉA Littoral Provence</title>
+<meta name="description" content="Simulez un bouquet et une rente de viager occupé. Estimation indicative et accompagnement ABITHÉA Littoral Provence à La Ciotat.">
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{--navy:#142c3b;--gold:#b58b54;--bg:#f7f5f0;--line:#dedbd3;--muted:#56646e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--navy);font:16px/1.5 system-ui,-apple-system,sans-serif}
+header{background:white;border-bottom:1px solid var(--line);padding:18px max(20px,calc((100vw - 1080px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px}
+header img{max-width:180px;height:43px;object-fit:contain}a{color:inherit}main{max-width:1080px;margin:auto;padding:36px 20px 65px}h1{font:600 clamp(2rem,4vw,3.3rem)/1.13 Georgia,serif;margin:8px 0 12px}h2{font:600 1.55rem Georgia,serif;margin:0 0 18px}
+.lead{max-width:760px;color:var(--muted)}.eyebrow{color:#946d3c;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.8rem}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px}.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:26px;min-width:0}
+fieldset{border:0;padding:0;margin:0 0 19px}legend{font-weight:750;margin-bottom:12px;color:#946d3c}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{display:block;font-size:.91rem;font-weight:600;margin:0 0 13px}
+input,select{width:100%;margin-top:6px;padding:12px;border:1px solid #c5cbd0;border-radius:8px;font:inherit;color:var(--navy);background:#fff}
+input:focus,select:focus,button:focus-visible,a:focus-visible{outline:3px solid #b58b54;outline-offset:2px}
+small,.help{font-size:.8rem;color:var(--muted);font-weight:400}.hide{display:none!important}
+button,.primary{cursor:pointer;border:0;border-radius:999px;padding:13px 19px;font:700 .96rem system-ui;text-align:center}
+button.primary,.primary{background:var(--navy);color:white;text-decoration:none;display:inline-block}
+button.secondary{background:#ede8df;color:var(--navy)}button:hover,.primary:hover{filter:brightness(1.09)}
+.full{width:100%}.result{position:sticky;top:15px;align-self:start}.stat{padding:17px;background:#f3f0e9;border-radius:12px;margin-bottom:10px}
+.stat strong{font-size:1.9rem;display:block;font-variant-numeric:tabular-nums}.stat.gold{background:var(--navy);color:white}.stat.gold small{color:#e1e4e5}
+.summary{width:100%;border-collapse:collapse;margin:12px 0}td{padding:10px 0;border-bottom:1px solid var(--line)}td:last-child{text-align:right;font-weight:700}
+.notice{font-size:.83rem;color:#56646e;line-height:1.55;margin-top:17px}.warning{background:#fff5df;padding:12px;border-radius:8px;color:#624618;font-size:.85rem}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}.actions>*{flex:1}
+details{border:1px solid var(--line);border-radius:10px;padding:13px;margin:20px 0}summary{font-weight:700;cursor:pointer}
+#expert{margin-top:14px;padding:18px;background:#f6f4ef;border-radius:12px}
+.error{color:#9d2f25;font-weight:600}.adjust{background:#f5f1e9;border-radius:12px;padding:16px;margin:14px 0}.adjust input[type=range]{accent-color:var(--navy);padding:0}.adjust .two{align-items:end}.adjust button{width:100%;margin-top:6px}.adjust strong{display:block;margin-bottom:5px}footer{text-align:center;background:white;border-top:1px solid var(--line);padding:25px 15px;font-size:.84rem;color:var(--muted)}
+@media(max-width:790px){.layout{grid-template-columns:1fr}.result{position:static}}
+@media(max-width:480px){.two{grid-template-columns:1fr}.panel{padding:18px}}
+</style></head><body>
+<header><a href="https://abithea-littoral-provence.fr/"><img src="https://abithea-littoral-provence.fr/assets/logo-abithea.webp" alt="ABITHÉA Littoral Provence"></a><a href="https://abithea-littoral-provence.fr/">Retour au site</a></header>
+<main><div class="eyebrow">ABITHÉA · Littoral Provence</div><h1>Simulez votre projet de viager occupé</h1>
+<p class="lead">Découvrez le principe du <b>bouquet</b> et de la <b>rente mensuelle à vie</b>. Version de démonstration à faire valider par ABITHÉA avant toute utilisation financière.</p>
+<div class="layout"><form id="form" class="panel"><h2>Votre simulation</h2>
+<fieldset><legend>1. Votre bien</legend>
+<label>Valeur libre estimée du bien (€)<input id="value" type="number" min="10000" max="100000000" step="1000" value="300000" required></label>
+<label>Loyer mensuel potentiel hors charges (€)<input id="rent" type="number" min="1" max="100000" step="any" value="966" required><span class="help">Loyer que pourrait produire le logement s'il était loué librement.</span></label>
+</fieldset>
+<fieldset><legend>2. Les vendeurs</legend>
+<label>Nombre de personnes conservant le droit d'habitation<select id="heads"><option value="1">Une personne</option><option value="2">Deux personnes</option></select></label>
+<div class="two"><label>Âge de la 1re personne<input id="age1" type="number" min="50" max="100" value="78" required></label>
+<label>Sexe (table statistique)<select id="sex1"><option value="F">Femme</option><option value="M">Homme</option></select></label></div>
+<div id="second" class="two hide"><label>Âge de la 2e personne<input id="age2" type="number" min="50" max="100" value="80"></label>
+<label>Sexe (table statistique)<select id="sex2"><option value="M">Homme</option><option value="F">Femme</option></select></label></div>
+<label id="reversionLabel" class="hide">Réversion de rente au survivant (%)<input id="reversion" type="number" min="0" max="100" step="5" value="100"></label>
+</fieldset>
+<fieldset><legend>3. Votre préférence</legend><label>Bouquet souhaité (€)<input id="bouquet" type="number" min="0" step="1000" value="60000" required></label>
+</fieldset>
+<button class="primary full" type="submit">Calculer une simulation test</button>
+<details><summary>Paramètres experts ABITHÉA</summary>
+<p class="help">Paramètres de travail, non certifiés. Ils sont affichés pour permettre le contrôle et la comparaison des simulations.</p>
+<div id="expert">
+<div class="two"><label>Abattement locatif (%)<input id="discount" type="number" min="0" max="90" step="1" value="20"></label><label>Charges annuelles supportées par l'occupant (€)<input id="charges" type="number" min="0" step="50" value="0"></label></div>
+<div class="two"><label>Taux d'actualisation (%)<input id="rate" type="number" min="0" max="15" step=".25" value="2"></label><label>Indexation annuelle de la rente (%)<input id="growth" type="number" min="0" max="10" step=".25" value="1.5"></label></div>
+
+<p class="help">Table de mortalité : voir la constante MORTALITY_TABLE dans le code (INSEE 2012-2016 ou TGF05/TGH05 génération 1950).</p>
+</div></details>
+</form>
+<section id="results" class="panel result" aria-live="polite"><h2>Votre estimation indicative</h2><p>Renseignez votre situation, puis cliquez sur « Calculer une simulation test ».</p></section></div>
+<details><summary>Comment fonctionne le calcul ?</summary><p>La valeur libre est la valeur estimée du bien s’il était vendu sans occupant : c’est exactement le montant que vous saisissez. La valeur occupée correspond à cette valeur libre diminuée de la valeur économique estimée du droit d'usage et d'habitation (DUH). Le bouquet est soustrait de cette valeur occupée ; le solde est converti en rente viagère en tenant compte de probabilités de survie et d'hypothèses financières. Pour deux personnes, la durée du droit d'occupation et la réversion de la rente sont prises en compte séparément.</p><p>La rente est versée à vie selon les clauses de l'acte, et non pendant une durée garantie. Une vente en viager doit être formalisée par un notaire.</p></details>
+</main><footer>ABITHÉA Littoral Provence · 296 avenue de la Tramontane, 13600 La Ciotat · <a href="tel:+33486183049">04 86 18 30 49</a> · <a href="https://abithea-littoral-provence.fr/mentions-legales.html">Mentions légales</a></footer>
+<script>
+'use strict';
+const LF=[100000, 99894, 99777, 99647, 99494, 99321, 99139, 98944, 98733, 98521, 98302, 98057, 97790, 97514, 97222, 96927, 96629, 96330, 96026, 95696, 95345, 94965, 94556, 94114, 93641, 93119, 92553, 91948, 91275, 90541, 89732, 88846, 87863, 86790, 85605, 84296, 82841, 81219, 79409, 77385, 75118, 72573, 69719, 66511, 62961, 59062, 54872, 50421, 45848, 41226, 36632, 32139, 27822, 23745, 19964, 16521, 13445, 10751, 8440, 6498, 4901, 3618, 2612, 1841, 1265, 847, 552, 349, 214, 127, 73, 41, 22, 11, 5];
+const LH=[100000, 99851, 99687, 99514, 99333, 99147, 98942, 98722, 98479, 98203, 97889, 97552, 97190, 96808, 96430, 96045, 95643, 95227, 94790, 94306, 93785, 93226, 92615, 91935, 91183, 90334, 89391, 88360, 87228, 86015, 84743, 83372, 81930, 80361, 78604, 76631, 74448, 71914, 69162, 66109, 62803, 59213, 55481, 51589, 47528, 43146, 38707, 34229, 29828, 25627, 21655, 18014, 14743, 11862, 9377, 7276, 5538, 4131, 3017, 2156, 1506, 1027, 683, 443, 279, 171, 102, 59, 33, 18, 9, 5, 2, 1, 0];
+const EXPERT_MODE=false; // true = affiche les paramètres de travail (réservé à l'agence)
+const $=id=>document.getElementById(id);
+const LABELS={value:'Valeur libre',rent:'Loyer mensuel',age1:'Âge de la 1re personne (50 à 100 ans)',age2:'Âge de la 2e personne (50 à 100 ans)',bouquet:'Bouquet',discount:'Abattement',charges:'Charges',rate:'Taux',growth:'Indexation',reversion:'Réversion (0 à 100 %)'};
+const euro=n=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
+const val=id=>Number($(id).value);
+const clamp=(x,a,b)=>Math.min(Math.max(x,a),b);
+if(!EXPERT_MODE)$('expert').closest('details').hidden=true;
+$('heads').addEventListener('change',()=>{const two=$('heads').value==='2';$('second').classList.toggle('hide',!two);$('reversionLabel').classList.toggle('hide',!two);$('age2').required=two});
+/* Table de mortalité : 'INSEE_2012_2016' (observée, ensemble de la population, fichier morta_niv_2016.xls) ou 'TGF05_TGH05_GEN1950' (tables prospectives d'assureur, plus prudentes sur la longévité). */
+const MORTALITY_TABLE='INSEE_2012_2016';
+const IF=[100000, 99710, 99653, 99632, 99619, 99608, 99599, 99591, 99584, 99577, 99571, 99564, 99557, 99550, 99542, 99533, 99522, 99509, 99495, 99479, 99459, 99438, 99417, 99396, 99374, 99353, 99330, 99306, 99281, 99255, 99226, 99195, 99163, 99129, 99092, 99054, 99011, 98964, 98910, 98850, 98785, 98714, 98636, 98550, 98452, 98342, 98219, 98083, 97935, 97767, 97589, 97395, 97180, 96953, 96707, 96440, 96154, 95843, 95508, 95151, 94767, 94365, 93935, 93486, 93003, 92501, 91955, 91388, 90786, 90139, 89440, 88671, 87855, 86952, 85966, 84912, 83742, 82442, 81018, 79455, 77706, 75725, 73497, 71022, 68256, 65174, 61753, 57993, 53893, 49548, 44937, 40138, 35236, 30337, 25567, 21029, 16874, 13147, 9937, 7272, 5171, 3557, 2337, 1491, 916];
+const IH=[100000, 99646, 99584, 99561, 99543, 99529, 99517, 99507, 99497, 99489, 99481, 99473, 99465, 99457, 99446, 99433, 99416, 99394, 99365, 99326, 99278, 99223, 99165, 99104, 99041, 98976, 98907, 98836, 98763, 98688, 98612, 98533, 98451, 98367, 98277, 98184, 98085, 97982, 97871, 97748, 97615, 97471, 97314, 97144, 96953, 96744, 96516, 96262, 95980, 95672, 95333, 94963, 94561, 94122, 93640, 93106, 92511, 91869, 91165, 90404, 89603, 88726, 87811, 86843, 85817, 84749, 83631, 82469, 81255, 79963, 78610, 77171, 75665, 74075, 72372, 70591, 68691, 66661, 64472, 62144, 59603, 56899, 53996, 50879, 47590, 44104, 40457, 36669, 32798, 28878, 25032, 21324, 17794, 14522, 11572, 8966, 6747, 4945, 3519, 2414, 1597, 1047, 671, 414, 246];
+const TBL={INSEE_2012_2016:{F:IF,M:IH,off:0},TGF05_TGH05_GEN1950:{F:LF,M:LH,off:46}};
+function lx(tb,off,age){const a=age-off,n=tb.length;if(a<=0)return tb[0];if(a>=n-1)return 0;const j=Math.floor(a);return tb[j]+(tb[j+1]-tb[j])*(a-j)}
+function survival(person,t){const T=TBL[MORTALITY_TABLE],tb=T[person.sex],d=lx(tb,T.off,person.age);return d>0?lx(tb,T.off,person.age+t)/d:0}
+function weight(people,t,kind,rev){const s=people.map(p=>survival(p,t));if(s.length===1)return s[0];const last=s[0]+s[1]-s[0]*s[1];return kind==='occupancy'?last:rev*last+(1-rev)*s[0]*s[1]}
+function factor(people,rate,growth,kind,rev){let result=0;const maxYears=Math.max(...people.map(p=>120-p.age));for(let k=1;k<=Math.ceil(maxYears*12);k++){const t=k/12;const p=weight(people,t,kind,rev);if(p<=0)continue;result+=p*Math.pow((1+growth)/(1+rate),t)/12}return result}
+function expected(people,kind,rev){let result=0;const maxYears=Math.max(...people.map(p=>120-p.age));for(let k=1;k<=Math.ceil(maxYears*12);k++)result+=weight(people,(k-.5)/12,kind,rev)/12;return result}
+function compute(){
+const ids=['value','rent','age1','bouquet','discount','charges','rate','growth'];
+if($('heads').value==='2')ids.push('age2','reversion');
+for(const id of ids){if(!$(id).checkValidity()||$(''+id).value.trim()==='')throw Error('Vérifiez le champ « '+(LABELS[id]||id)+' ».')}
+const people=[{age:val('age1'),sex:$('sex1').value}];
+if($('heads').value==='2')people.push({age:val('age2'),sex:$('sex2').value});
+const value=val('value'),rent=val('rent'),bouquet=val('bouquet'),discount=val('discount')/100,charges=val('charges'),rate=val('rate')/100,growth=val('growth')/100,rev=people.length===2?val('reversion')/100:1;
+const annual=Math.max(0,rent*12*(1-discount)-charges);
+const occupancyFactor=factor(people,rate,0,'occupancy',1);
+const rawDuh=annual*occupancyFactor;
+if(rawDuh>=value)throw Error("La valeur estimée de l'occupation dépasse la valeur du bien. Revoyez le loyer, les charges ou les hypothèses avec ABITHÉA.");
+const occupied=value-rawDuh;
+if(bouquet>occupied)throw Error("Le bouquet demandé dépasse la valeur occupée estimée ("+euro(occupied)+"). Réduisez le bouquet.");
+const annuityFactor=factor(people,rate,growth,'annuity',rev);
+if(annuityFactor<=0)throw Error('Coefficient de rente invalide.');
+const monthly=(occupied-bouquet)/annuityFactor/12;
+return {value,rent,annual,rawDuh,occupied,bouquet,monthly,occupancyFactor,annuityFactor,years:expected(people,'occupancy',1),rate,growth,rev,people};
+}
+function warnHtml(x){const w=[];const r=x.rawDuh/x.value;
+if(r>0.45)w.push('La valeur du droit d\'occupation représente '+Math.round(r*100)+' % de la valeur libre : c\'est élevé, vérifiez le loyer, l\'âge et l\'abattement avec ABITHÉA.');
+if(Math.min(...x.people.map(p=>p.age))>=90)w.push('À cet âge, la rente estimée est très sensible aux hypothèses : une validation par un professionnel est indispensable.');
+return w.map(t=>'<p class="error" role="alert">'+t+'</p>').join('')}
+function show(x){
+$('results').innerHTML=`<h2>Votre estimation indicative</h2>
+<div class="stat gold"><small>Bouquet versé à la signature</small><strong id="liveBouquet">${euro(x.bouquet)}</strong></div>
+<div class="stat"><small>Rente mensuelle initiale estimée</small><strong id="liveRente">${euro(x.monthly)} / mois</strong></div>
+<div class="adjust"><strong>Faites varier le bouquet et la rente</strong><p class="help">Déplacez le curseur ou saisissez un montant : le bouquet et la rente s’ajustent immédiatement, sans modifier la valeur occupée.</p><input id="bouquetSlider" type="range" min="0" max="${Math.floor(x.occupied)}" step="100" value="${x.bouquet}" aria-label="Ajuster le bouquet"><div class="two"><label>Bouquet (€)<input id="bouquetLive" type="number" min="0" max="${x.occupied.toFixed(2)}" step="100" value="${x.bouquet}"></label><label>Rente mensuelle (€)<input id="renteLive" type="number" min="0" max="${(x.occupied/x.annuityFactor/12).toFixed(2)}" step="1" value="${x.monthly.toFixed(2)}"></label></div><button id="resetAdjust" type="button" class="secondary">Revenir à la simulation initiale</button><p id="adjustError" class="error" role="status"></p></div>
+<table class="summary"><tr><td>Valeur libre estimée du bien (montant saisi)</td><td>${euro(x.value)}</td></tr><tr><td>Valeur du droit d'occupation (DUH)</td><td>− ${euro(x.rawDuh)}</td></tr><tr><td>Valeur occupée</td><td>${euro(x.occupied)}</td></tr><tr><td>Capital converti en rente</td><td id="liveCapital">${euro(x.occupied-x.bouquet)}</td></tr></table>
+<p class="help">Durée statistique d'occupation estimée : ${x.years.toFixed(1).replace('.',',')} ans. Ce n'est pas une durée contractuelle de paiement.</p>
+${warnHtml(x)}<div class="warning"><b>Version de travail non publiable en l'état.</b> La simulation utilise la table de mortalité INSEE 2012-2016 et des hypothèses (taux, abattement, indexation) qui doivent être validées par un actuaire ou un notaire. Ces montants servent uniquement à tester le parcours et le calcul.</div>
+<div class="actions"><a class="primary" href="https://abithea-littoral-provence.fr/contact.html?objet=viager">Parler de mon projet avec ABITHÉA</a><a class="primary" href="tel:+33486183049">Appeler l'agence</a></div>
+<p class="notice">Simulation non contractuelle, hors frais d'acquisition et fiscalité. La valeur du bien, les clauses d'occupation, la répartition des charges, la réversion et l'indexation doivent être vérifiées avec un professionnel et un notaire. La rente est due à vie selon l'acte.</p>`;
+const maxMonthly=x.occupied/x.annuityFactor/12;
+const slider=$('bouquetSlider'),bInput=$('bouquetLive'),rInput=$('renteLive');
+function update(b){
+  if(!Number.isFinite(b)||b<0||b>x.occupied){$('adjustError').textContent='Le bouquet doit être compris entre 0 € et '+euro(x.occupied)+'.';return}
+  $('adjustError').textContent='';
+  const r=(x.occupied-b)/x.annuityFactor/12;
+  slider.value=String(b);bInput.value=b.toFixed(2);rInput.value=r.toFixed(2);
+  $('liveBouquet').textContent=euro(b);$('liveRente').textContent=euro(r)+' / mois';$('liveCapital').textContent=euro(x.occupied-b);
+  $('bouquet').value=String(Math.round(b));
+}
+slider.addEventListener('input',()=>update(Number(slider.value)));
+bInput.addEventListener('input',()=>{if(bInput.value!=='')update(Number(bInput.value))});
+rInput.addEventListener('input',()=>{if(rInput.value!==''){const r=Number(rInput.value);if(!Number.isFinite(r)||r<0||r>maxMonthly){$('adjustError').textContent='La rente doit être comprise entre 0 € et '+euro(maxMonthly)+'.';return}update(x.occupied-r*12*x.annuityFactor)}});
+$('resetAdjust').addEventListener('click',()=>update(x.bouquet));
+}
+$('form').addEventListener('submit',e=>{e.preventDefault();try{show(compute());if(innerWidth<790)$('results').scrollIntoView({behavior:'smooth'})}catch(err){$('results').innerHTML='<h2>Simulation à vérifier</h2><p class="error"></p>';$('results').querySelector('.error').textContent=err.message}});
+// Recalcul immédiat : la valeur affichée reste synchronisée avec la valeur saisie.
+let timer;
+function refresh(){try{show(compute())}catch(err){$('results').innerHTML='<h2>Simulation à actualiser</h2><p class="error"></p>';$('results').querySelector('.error').textContent=err.message}}
+$('form').addEventListener('input',e=>{if(['bouquetSlider','bouquetLive','renteLive'].includes(e.target.id))return;clearTimeout(timer);timer=setTimeout(refresh,350)});
+$('form').addEventListener('change', e => {
+  if(e.target.tagName === 'SELECT') {
+    refresh();
+  }
+});
+try { show(compute()); } catch (err) { $('results').innerHTML='<h2>Simulation à vérifier</h2><p class="error"></p>'; $('results').querySelector('.error').textContent=err.message; }
+</script></body></html>
